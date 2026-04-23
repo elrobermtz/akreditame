@@ -1,0 +1,1 @@
+{"name":"akreditame-workspace","private":true,"scripts":{"dev:app":"npm run dev --prefix app","dev:api":"npm run dev --prefix api","dev":"concurrently \"npm run dev:app\" \"npm run dev:api\""},"devDependencies":{"concurrently":"^9.2.1"}}
