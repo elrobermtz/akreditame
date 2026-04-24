@@ -10,7 +10,16 @@ Akredita Me is a platform for structuring real assets and connecting them with p
 - **Lead Capture**: Securely capture and store project and investor leads.
 
 ## Visual Style: "Visionary Dynamic"
-- **Color Palette**: Deep financial blues, vibrant "energy" greens, and metallic silver accents.
+- **Logo Assets**:
+  - Full: `akredita_full_centered.svg`
+  - Isotipo: `akredita_isotipo_centered.svg`
+  - Wordmark: `akredita_wordmark_centered.svg`
+- **Color Palette**:
+  - **Deep Navy (Background/Headers)**: `#0B1F3A`
+  - **Primary Blue (Buttons/Interactions)**: Gradient from `#009BFF` to `#0052CC`
+  - **Accent Orange (Alerts/Callouts)**: Gradient from `#FF6A00` to `#E53900`
+- **Typography**:
+  - **Main Font**: **Inter Tight** (Bold/Semibold for headers).
 - **Elements**: Glassmorphism (frosted glass effects), moving gradients, and subtle micro-animations for transitions.
 - **Imagery**: High-quality representations of real assets combined with abstract data/flow visualizations.
 
