@@ -5,7 +5,7 @@ export const Hero = () => {
     <section className="hero">
       <div className="hero-content">
         <img 
-          src="/logo.png" 
+          src="/logo-v3.png" 
           alt="Akredita Me" 
           className="hero-logo" 
         />
