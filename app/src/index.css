@@ -190,3 +190,49 @@ body {
   outline: none;
   border-color: var(--color-blue-main);
 }
+
+.nav-logo {
+  height: 30px;
+  transition: var(--transition-smooth);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  nav {
+    padding: 1.5rem !important;
+  }
+  
+  .nav-logo {
+    height: 22px;
+  }
+
+  .hero-logo {
+    height: 80px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .wizard-container {
+    padding: 4rem 1rem;
+    width: 100%;
+  }
+
+  .wizard-card {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .wizard-options {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .wizard-option-btn {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
