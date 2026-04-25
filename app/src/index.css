@@ -95,8 +95,8 @@ body {
 }
 
 .hero-logo {
-  height: 80px;
-  margin-bottom: 2rem;
+  height: 120px;
+  margin-bottom: 2.5rem;
   animation: fadeIn 1s ease-out;
 }
 
