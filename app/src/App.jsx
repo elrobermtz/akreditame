@@ -6,12 +6,12 @@ import './index.css';
 
 function App() {
   return (
-    <div className="app-container">
-      <nav style={{ padding: '2rem', position: 'absolute', width: '100%', zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <img src="/wordmark-v4.png" alt="Akredita Me" className="nav-logo" />
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <a href="#verticals" style={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Divisiones</a>
-          <a href="#contact" style={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Contacto</a>
+    <div className="min-h-screen">
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-8 sm:px-12 bg-akredita-dark/80 backdrop-blur-md transition-all duration-300">
+        <img src="/wordmark-v4.png" alt="Akredita Me" className="h-5 sm:h-7" />
+        <div className="flex gap-8 items-center">
+          <a href="#verticals" className="text-[0.8rem] font-bold tracking-[0.2em] uppercase hover:text-akredita-blue transition-colors">Verticales</a>
+          <a href="#contact" className="text-[0.8rem] font-bold tracking-[0.2em] uppercase hover:text-akredita-blue transition-colors">Contacto</a>
         </div>
       </nav>
 
@@ -21,10 +21,12 @@ function App() {
         <LeadWizard />
       </main>
 
-      <footer style={{ padding: '4rem 2rem', borderTop: '1px solid var(--glass-border)', textAlign: 'center', opacity: 0.6 }}>
-        <img src="/logo-v4.png" alt="Akredita Me" style={{ height: '30px', marginBottom: '1.5rem' }} />
-        <p>&copy; {new Date().getFullYear()} Akredita Me. Todos los derechos reservados.</p>
-        <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Estructurando activos. Conectando capital.</p>
+      <footer className="py-20 px-8 border-t border-white/10 text-center bg-akredita-dark">
+        <img src="/logo-v4.png" alt="Akredita Me" className="h-8 mx-auto mb-8 opacity-80" />
+        <div className="max-w-2xl mx-auto opacity-40">
+          <p className="text-sm">© {new Date().getFullYear()} Akredita Me. Todos los derechos reservados.</p>
+          <p className="text-xs mt-3 font-bold tracking-[0.3em] uppercase">Estructurando activos. Conectando capital.</p>
+        </div>
       </footer>
     </div>
   );
