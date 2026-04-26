@@ -24,7 +24,7 @@ function App() {
       <footer className="py-20 px-8 border-t border-white/10 text-center bg-akredita-dark">
         <img src="/logo-v4.png" alt="Akredita Me" className="h-8 mx-auto mb-8 opacity-80" />
         <div className="max-w-2xl mx-auto opacity-40">
-          <p className="text-sm">© {new Date().getFullYear()} Akredita Me. Todos los derechos reservados.</p>
+          <p className="text-sm">© {new Date().getFullYear()} Akredita Me, S.A.P.I. de C.V. Todos los derechos reservados.</p>
           <p className="text-xs mt-3 font-bold tracking-[0.3em] uppercase">Estructurando activos. Conectando capital.</p>
         </div>
       </footer>
