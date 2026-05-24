@@ -1,35 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { VerticalsHub } from './components/VerticalsHub';
-import { LeadWizard } from './components/LeadWizard';
+import { Pillars } from './components/Pillars';
+import { ValueProp } from './components/ValueProp';
+import { Trust } from './components/Trust';
+import { Contact } from './components/Contact';
+import { Footer } from './components/Footer';
 import './index.css';
 
 function App() {
+  // Smooth scroll and scroll animations setup
+  useEffect(() => {
+    document.title = "Akredita Me | Infraestructura de Suministro Eléctrico para el Nearshoring";
+    
+    const handleSmoothScroll = (e) => {
+      const href = e.currentTarget.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => link.addEventListener('click', handleSmoothScroll));
+    
+    return () => {
+      links.forEach(link => link.removeEventListener('click', handleSmoothScroll));
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-8 sm:px-12 bg-akredita-dark/80 backdrop-blur-md transition-all duration-300">
-        <img src="/wordmark-v4.png" alt="Akredita Me" className="h-5 sm:h-7" />
-        <div className="flex gap-8 items-center">
-          <a href="#verticals" className="text-[0.8rem] font-bold tracking-[0.2em] uppercase hover:text-akredita-blue transition-colors">Verticales</a>
-          <a href="#contact" className="text-[0.8rem] font-bold tracking-[0.2em] uppercase hover:text-akredita-blue transition-colors">Contacto</a>
-        </div>
-      </nav>
-
-      <main>
+    <div className="min-h-screen bg-background text-on-background">
+      <Navbar />
+      <main className="pt-20">
         <Hero />
-        <VerticalsHub />
-        <LeadWizard />
+        <Pillars />
+        <ValueProp />
+        <Trust />
+        <Contact />
       </main>
-
-      <footer className="py-20 px-8 border-t border-white/10 text-center bg-akredita-dark">
-        <img src="/logo-v4.png" alt="Akredita Me" className="h-8 mx-auto mb-8 opacity-80" />
-        <div className="max-w-2xl mx-auto opacity-40">
-          <p className="text-sm">© {new Date().getFullYear()} Akredita Me, S.A.P.I. de C.V. Todos los derechos reservados.</p>
-          <p className="text-xs mt-3 font-bold tracking-[0.3em] uppercase">Estructurando activos. Conectando capital.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
 
 export default App;
+
