@@ -4,30 +4,35 @@
 
 @layer base {
   body {
-    @apply font-inter bg-akredita-dark text-white antialiased overflow-x-hidden;
+    @apply font-body-md bg-background text-on-background antialiased overflow-x-hidden selection:bg-primary-container selection:text-white;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
+    @apply font-headline-lg font-semibold tracking-tight;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-akredita-orange hover:bg-akredita-orangeDark text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-akredita-orange/20;
+    @apply bg-primary-container text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:brightness-110 active:scale-[0.98] shadow-lg shadow-primary-container/20;
   }
 
   .btn-secondary {
-    @apply bg-white/5 border border-white/10 hover:bg-white/10 backdrop-blur-md text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300;
+    @apply bg-white/5 border border-white/15 hover:bg-white/10 backdrop-blur-md text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .hero-gradient {
+    background: linear-gradient(180deg, rgba(3, 20, 39, 0.4) 0%, rgba(3, 20, 39, 0.95) 100%);
   }
 
   .glass-card {
-    @apply bg-white/[0.03] border border-white/10 backdrop-blur-xl rounded-2xl p-8;
+    background: rgba(17, 34, 64, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 107, 0, 0.25);
   }
 }
 
-@layer utilities {
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70;
-  }
-}
