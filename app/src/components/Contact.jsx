@@ -97,10 +97,6 @@ export const Contact = () => {
                 <Mail className="text-primary-container w-5 h-5" />
                 <span className="font-body-lg text-sm md:text-body-lg text-on-surface">contacto@akredita.me</span>
               </div>
-              <div className="flex items-center gap-4">
-                <Phone className="text-primary-container w-5 h-5" />
-                <span className="font-body-lg text-sm md:text-body-lg text-on-surface">+52 81 1234 5678</span>
-              </div>
             </div>
           </div>
           
