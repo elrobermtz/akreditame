@@ -178,7 +178,7 @@
 - Create: `app/entrypoint.sh`
 - Modify: `app/Dockerfile`
 
-- [ ] **Paso 1: Crear `app/nginx.conf`**
+- [x] **Paso 1: Crear `app/nginx.conf`**
   - Escucha en puerto 80.
   - Sirve archivos estáticos de React desde `/usr/share/nginx/html`.
   - Regla SPA: `try_files $uri $uri/ /index.html;` para que `/simulador` cargue `index.html`.
@@ -195,7 +195,7 @@
     ```
   - Proxy para llamadas `/api/` hacia el servicio backend `http://api:3001/api/`.
 
-- [ ] **Paso 2: Crear `app/entrypoint.sh`**
+- [x] **Paso 2: Crear `app/entrypoint.sh`**
   - Script ejecutable en Unix/Alpine:
     ```sh
     #!/bin/sh
@@ -211,7 +211,7 @@
     exec nginx -g "daemon off;"
     ```
 
-- [ ] **Paso 3: Actualizar `app/Dockerfile`**
+- [x] **Paso 3: Actualizar `app/Dockerfile`**
   - Multi-etapa:
     1. Etapa de build Node: compila React (`npm run build`).
     2. Etapa final: parte de `nginx:alpine` e instala Python 3 y pip (`apk add --no-cache python3 py3-pip`).
@@ -222,10 +222,10 @@
     7. Copia `entrypoint.sh`, le da permisos de ejecución `chmod +x /entrypoint.sh`.
     8. `ENTRYPOINT ["/entrypoint.sh"]`.
 
-- [ ] **Paso 4: Validar sintaxis y configuración**
+- [x] **Paso 4: Validar sintaxis y configuración**
   Verificar que `app/Dockerfile`, `app/nginx.conf` y `app/entrypoint.sh` cumplan los estándares de Docker.
 
-- [ ] **Paso 5: Commit de Task 5**
+- [x] **Paso 5: Commit de Task 5**
   ```bash
   git add app/nginx.conf app/entrypoint.sh app/Dockerfile
   git commit -m "chore(docker): unify React and Streamlit inside app/Dockerfile"
@@ -235,19 +235,19 @@
 
 ### Task 6: Verificación Integral End-to-End
 
-- [ ] **Paso 1: Verificación de compilación del frontend (`app`)**
+- [x] **Paso 1: Verificación de compilación del frontend (`app`)**
   Verificar con `npm run build` en `app/`.
 
-- [ ] **Paso 2: Verificación de sintaxis del backend (`api`)**
+- [x] **Paso 2: Verificación de sintaxis del backend (`api`)**
   Verificar con `node -c` sobre todos los archivos `.js` modificados.
 
-- [ ] **Paso 3: Verificación de credenciales semilla y flujo de login**
+- [x] **Paso 3: Verificación de credenciales semilla y flujo de login**
   Confirmar que `roberto.martinez@akredita.me` con `Temporal12345!!` sea generado correctamente.
 
-- [ ] **Paso 4: Verificación de invisibilidad en landing page**
+- [x] **Paso 4: Verificación de invisibilidad en landing page**
   Garantizar que ningún archivo público contenga enlaces a `/simulador`.
 
-- [ ] **Paso 5: Commit final y resumen de entrega**
+- [x] **Paso 5: Commit final y resumen de entrega**
   ```bash
   git add .
   git commit -m "feat(simulador): complete private OP1 simulator integration"
