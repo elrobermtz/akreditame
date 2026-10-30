@@ -66,7 +66,7 @@
 - Modify: `api/index.js`
 - Create: `api/routes/simulator.js` (o integrarlo de forma limpia y modular en `api/`)
 
-- [ ] **Paso 1: Escribir módulo de autenticación y endpoints del simulador**
+- [x] **Paso 1: Escribir módulo de autenticación y endpoints del simulador**
   Crear las siguientes rutas:
   - `POST /api/simulador/login`: Valida email y password con `bcrypt.compare`. Emite JWT con `{ id, email, role, name }`.
   - `GET /api/simulador/verify`: Middleware de verificación de token JWT. Devuelve `{ valid: true, user }`.
@@ -75,17 +75,17 @@
   - `PATCH /api/simulador/admin/users/:id`: Exclusivo para rol `admin`. Actualiza estado (`is_active`) o nueva contraseña.
   - `DELETE /api/simulador/admin/users/:id`: Exclusivo para rol `admin`. Elimina un usuario (previniendo que el admin actual se borre a sí mismo).
 
-- [ ] **Paso 2: Registrar rutas y ejecutar migración automática al iniciar la API**
+- [x] **Paso 2: Registrar rutas y ejecutar migración automática al iniciar la API**
   En `api/index.js`, invocar la creación de tabla y semilla al arrancar el servidor Express para garantizar que la base de datos siempre esté lista.
 
-- [ ] **Paso 3: Probar endpoints con un script de prueba automatizado**
+- [x] **Paso 3: Probar endpoints con un script de prueba automatizado**
   Crear y ejecutar `api/scripts/test-simulator-auth.js` que pruebe:
   1. Login con credenciales incorrectas (espera 401).
   2. Login con `roberto.martinez@akredita.me` / `Temporal12345!!` (espera 200 y token).
   3. Llamar `/api/simulador/verify` con el token recibido (espera 200).
   4. Llamar `/api/simulador/admin/users` (espera 200 y array con el usuario admin).
 
-- [ ] **Paso 4: Eliminar script temporal de prueba y hacer commit**
+- [x] **Paso 4: Eliminar script temporal de prueba y hacer commit**
   ```bash
   git add api/
   git commit -m "feat(api): implement auth and admin endpoints for simulator"
@@ -99,14 +99,14 @@
 - Create: `app/src/components/simulator/SimulatorLogin.jsx`
 - Create: `app/src/components/simulator/SimulatorAdminModal.jsx`
 
-- [ ] **Paso 1: Crear componente `SimulatorLogin.jsx`**
+- [x] **Paso 1: Crear componente `SimulatorLogin.jsx`**
   - Identidad gráfica Akredita Me (Navy `#0A192F` o tono corporativo, acentos dorados/ámbar, tipografía limpia).
   - Campos: Correo electrónico y Contraseña.
   - Botón de submit con estado de carga ("Iniciando sesión...").
   - Alerta visual en caso de error.
   - Al autenticar con éxito, llama al callback `onLoginSuccess(token, user)`.
 
-- [ ] **Paso 2: Crear componente `SimulatorAdminModal.jsx`**
+- [x] **Paso 2: Crear componente `SimulatorAdminModal.jsx`**
   - Modal o panel desplegable exclusivo para administradores.
   - Sección 1: Formulario "Dar de alta usuario" (Correo, Nombre/Referencia, Contraseña).
   - Sección 2: Tabla de usuarios con estado (Badge verde Activo / rojo Inactivo).
@@ -116,14 +116,14 @@
     - Botón para eliminar usuario.
   - Botón para cerrar el panel y volver al simulador.
 
-- [ ] **Paso 3: Verificar compilación en frontend**
+- [x] **Paso 3: Verificar compilación en frontend**
   Ejecutar:
   ```bash
   cd app && npm run build
   ```
   Asegurar que no haya errores de sintaxis ni de Tailwind.
 
-- [ ] **Paso 4: Commit de Task 3**
+- [x] **Paso 4: Commit de Task 3**
   ```bash
   git add app/src/components/simulator/
   git commit -m "feat(app): add SimulatorLogin and SimulatorAdminModal components"
@@ -137,7 +137,7 @@
 - Create: `app/src/components/simulator/SimulatorView.jsx`
 - Modify: `app/src/App.jsx`
 
-- [ ] **Paso 1: Crear `SimulatorView.jsx`**
+- [x] **Paso 1: Crear `SimulatorView.jsx`**
   - Gestiona el estado de sesión (`token`, `user`, `loading`).
   - Al montar, si hay token en `localStorage` o `sessionStorage`, llama a `/api/simulador/verify`.
   - Si no está autenticado, renderiza `SimulatorLogin`.
@@ -150,7 +150,7 @@
       - Botón "Cerrar Sesión" (limpia token y recarga estado).
     - Debajo, un contenedor `iframe` que ocupa el alto restante de la pantalla (`h-[calc(100vh-64px)] w-full border-0`) cargando `/stream/?embed=true`.
 
-- [ ] **Paso 2: Modificar `app/src/App.jsx` para enrutamiento discreto**
+- [x] **Paso 2: Modificar `app/src/App.jsx` para enrutamiento discreto**
   - Sin alterar las anclas ni la landing page pública:
     ```javascript
     const isSimulatorRoute = window.location.pathname.startsWith('/simulador');
@@ -160,10 +160,10 @@
     ```
   - Verificar que `Navbar` y `Footer` permanecen sin enlaces al simulador.
 
-- [ ] **Paso 3: Probar navegación en React**
+- [x] **Paso 3: Probar navegación en React**
   Ejecutar `npm run build` en `app` para asegurar compilación exitosa.
 
-- [ ] **Paso 4: Commit de Task 4**
+- [x] **Paso 4: Commit de Task 4**
   ```bash
   git add app/src/components/simulator/SimulatorView.jsx app/src/App.jsx
   git commit -m "feat(app): integrate private /simulador route and simulator view"
