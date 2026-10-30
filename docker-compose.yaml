@@ -10,13 +10,18 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-akreditame_db}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      default:
+        aliases:
+          - akreditame-db
+          - db
 
   api:
     build: ./api
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://${POSTGRES_USER:-akreditame_user}:${POSTGRES_PASSWORD:-akreditame_password}@akreditame-db:5432/${POSTGRES_DB:-akreditame_db}
+      DATABASE_URL: ${DATABASE_URL:-postgres://${POSTGRES_USER:-akreditame_user}:${POSTGRES_PASSWORD:-akreditame_password}@db:5432/${POSTGRES_DB:-akreditame_db}}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       RESEND_API_KEY: ${RESEND_API_KEY}
       JWT_SECRET: ${JWT_SECRET:-akreditame-simulador-secret-key-2026}

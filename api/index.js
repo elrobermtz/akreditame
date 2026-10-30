@@ -17,15 +17,24 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-// Seed admin user and ensure simulator table exists on startup
+// Seed admin user and ensure simulator table exists on startup with retries
 if (process.env.DATABASE_URL) {
-  ensureAdminUser(pool)
-    .then(() => {
-      console.log('[api] Database initialized and admin user verified.');
-    })
-    .catch((err) => {
-      console.error('[api] Warning: Error initializing admin user:', err.message);
-    });
+  const initDbWithRetry = async (retries = 6, delay = 2500) => {
+    for (let i = 0; i < retries; i++) {
+      try {
+        await ensureAdminUser(pool);
+        console.log('[api] Database initialized and admin user verified.');
+        return;
+      } catch (err) {
+        console.warn(`[api] Waiting for DB (attempt ${i + 1}/${retries}): ${err.message}`);
+        if (i < retries - 1) {
+          await new Promise((res) => setTimeout(res, delay));
+        }
+      }
+    }
+    console.error('[api] Warning: Could not initialize admin user after retries.');
+  };
+  initDbWithRetry();
 }
 
 // Routes
