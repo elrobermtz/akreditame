@@ -19,6 +19,7 @@ services:
       DATABASE_URL: postgres://${POSTGRES_USER:-akreditame_user}:${POSTGRES_PASSWORD:-akreditame_password}@akreditame-db:5432/${POSTGRES_DB:-akreditame_db}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       RESEND_API_KEY: ${RESEND_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-akreditame-simulador-secret-key-2026}
 
   app:
     build:

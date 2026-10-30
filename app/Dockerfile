@@ -34,7 +34,7 @@ RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Copy entrypoint script
 COPY app/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN sed -i -e 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
 
 EXPOSE 80
 

@@ -112,6 +112,9 @@ function createSimulatorRouter(pool) {
     if (!email || !password) {
       return res.status(400).json({ error: 'Email y contraseña requeridos' });
     }
+    if (String(password).length < 6) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres' });
+    }
 
     try {
       const normalizedEmail = String(email).trim().toLowerCase();
@@ -173,9 +176,12 @@ function createSimulatorRouter(pool) {
         updates.push(`role = $${index++}`);
         values.push(userRole);
       }
-      if (password !== undefined && String(password).trim() !== '') {
+      if (password !== undefined) {
+        if (String(password).trim().length < 6) {
+          return res.status(400).json({ error: 'La nueva contraseña debe tener al menos 6 caracteres' });
+        }
         const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(String(password), saltRounds);
+        const passwordHash = await bcrypt.hash(String(password).trim(), saltRounds);
         updates.push(`password_hash = $${index++}`);
         values.push(passwordHash);
       }

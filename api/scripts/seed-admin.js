@@ -2,9 +2,9 @@ const bcrypt = require('bcryptjs');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-const ADMIN_EMAIL = 'roberto.martinez@akredita.me';
-const ADMIN_PASSWORD = 'Temporal12345!!';
-const ADMIN_NAME = 'Roberto Martinez';
+const ADMIN_EMAIL = process.env.ADMIN_INITIAL_EMAIL || 'roberto.martinez@akredita.me';
+const ADMIN_PASSWORD = process.env.ADMIN_INITIAL_PASSWORD || 'Temporal12345!!';
+const ADMIN_NAME = process.env.ADMIN_INITIAL_NAME || 'Roberto Martinez';
 const ADMIN_ROLE = 'admin';
 
 async function ensureAdminUser(pool) {
