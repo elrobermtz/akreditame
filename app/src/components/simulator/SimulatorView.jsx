@@ -194,7 +194,6 @@ export const SimulatorView = () => {
           onClose={() => setIsAdminModalOpen(false)}
           currentUser={user}
           token={token}
-          propToken={token}
         />
       )}
     </div>
