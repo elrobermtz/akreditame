@@ -89,32 +89,10 @@ export const SimulatorAdminModal = ({
 
   // Initial load when modal opens
   useEffect(() => {
-    let ignore = false;
     if (isOpen) {
-      const token = propToken || localStorage.getItem('simulator_token') || '';
-      if (token) {
-        fetch('/api/simulador/admin/users', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-          .then(res => res.json().then(data => ({ ok: res.ok, data })))
-          .then(({ ok, data }) => {
-            if (!ignore && ok && data.users) {
-              setUsers(data.users);
-            }
-          })
-          .catch(err => {
-            if (!ignore) {
-              console.error('[SimulatorAdminModal] initial fetch error:', err);
-            }
-          });
-      }
+      fetchUsers();
     }
-    return () => {
-      ignore = true;
-    };
-  }, [isOpen, propToken]);
+  }, [isOpen, fetchUsers]);
 
   // Handle ESC key to close
   useEffect(() => {
@@ -293,7 +271,13 @@ export const SimulatorAdminModal = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+    <div 
+      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="admin-modal-title"
+    >
       <div 
         className="bg-surface-container border border-white/10 rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}
@@ -305,7 +289,7 @@ export const SimulatorAdminModal = ({
               <Shield className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-headline-lg font-bold text-white flex items-center gap-2">
+              <h2 id="admin-modal-title" className="text-xl font-headline-lg font-bold text-white flex items-center gap-2">
                 Administración de Accesos
                 <span className="text-[11px] font-mono uppercase bg-primary-container/10 text-primary border border-primary/20 px-2 py-0.5 rounded-full font-normal">
                   Admin Panel
@@ -443,7 +427,7 @@ export const SimulatorAdminModal = ({
                               <div className="font-medium text-white flex items-center gap-2">
                                 <span>{u.email}</span>
                                 {isSelf && (
-                                  <span className="text-[10px] bg-primary-container/20 text-primary border border-primary/30 px-1.5 py-0.2 rounded font-mono">
+                                  <span className="text-[10px] bg-primary-container/20 text-primary border border-primary/30 px-1.5 py-0.5 rounded font-mono">
                                     Tú
                                   </span>
                                 )}
