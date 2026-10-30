@@ -107,9 +107,11 @@ flowchart TD
    ```
 
 2. **Semilla Inicial (Admin por defecto):**
-   - Script o lógica de arranque que inserta el usuario administrador si la tabla está vacía, usando variables de entorno:
-     - `SIMULATOR_ADMIN_EMAIL` (ej. `admin@akreditame.com`)
-     - `SIMULATOR_ADMIN_PASSWORD` (ej. contraseña segura)
+   - Script o lógica de arranque que inserta el usuario administrador si la tabla está vacía, usando las credenciales predefinidas o variables de entorno:
+     - `SIMULATOR_ADMIN_EMAIL`: `roberto.martinez@akredita.me`
+     - `SIMULATOR_ADMIN_PASSWORD`: `Temporal12345!!`
+     - `name`: `Roberto Martinez`
+     - `role`: `admin`
 
 3. **Endpoints de la API (`api/index.js` o rutas modulares):**
    - `POST /api/simulador/login`: Valida email y password con `bcrypt.compare`. Retorna JWT firmado con `{ id, email, role }`.
@@ -173,3 +175,4 @@ Para cumplir la directiva de no crear nuevos Dockerfiles ni nuevos servicios en 
    - Verificar la interacción completa de las pestañas financieras y cálculos de `simulador_op1.py` dentro del iframe.
 5. **Prueba de Contenedor:**
    - Construcción y ejecución del contenedor `app` unificado para confirmar que Nginx y Streamlit operan en armonía.
+
