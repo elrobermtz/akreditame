@@ -12,4 +12,4 @@ streamlit run /opt/simulador/simulador_op1.py \
     --browser.gatherUsageStats=false &
 
 echo "Iniciando Nginx en primer plano..."
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

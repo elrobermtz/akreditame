@@ -11,9 +11,11 @@ FROM python:3.13-slim AS production-stage
 
 WORKDIR /opt/simulador
 
-# Install nginx
+# Install nginx and configure logs to stdout/stderr
 RUN apt-get update && \
     apt-get install -y --no-install-recommends nginx && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
     rm -rf /var/lib/apt/lists/*
 
 # Install simulator dependencies
