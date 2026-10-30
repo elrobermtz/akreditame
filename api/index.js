@@ -3,6 +3,9 @@ const cors = require('cors');
 const { Pool } = require('pg');
 require('dotenv').config();
 
+const { ensureAdminUser } = require('./scripts/seed-admin');
+const createSimulatorRouter = require('./routes/simulator');
+
 const app = express();
 const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:5173'];
 app.use(cors({
@@ -13,6 +16,20 @@ app.use(express.json());
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+
+// Seed admin user and ensure simulator table exists on startup
+if (process.env.DATABASE_URL) {
+  ensureAdminUser(pool)
+    .then(() => {
+      console.log('[api] Database initialized and admin user verified.');
+    })
+    .catch((err) => {
+      console.error('[api] Warning: Error initializing admin user:', err.message);
+    });
+}
+
+// Routes
+app.use('/api/simulador', createSimulatorRouter(pool));
 
 app.post('/api/leads', async (req, res) => {
   const { full_name, company, email, phone, interest_type, vertical, message } = req.body;
@@ -35,6 +52,12 @@ app.post('/api/leads', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`API running on port ${PORT}`);
-});
+
+let server;
+if (process.env.NODE_ENV !== 'test') {
+  server = app.listen(PORT, () => {
+    console.log(`API running on port ${PORT}`);
+  });
+}
+
+module.exports = { app, pool, server };
