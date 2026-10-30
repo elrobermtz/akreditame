@@ -127,21 +127,24 @@ with st.sidebar.expander("Financiamiento bancario"):
     com_ap = st.slider("Comisión de apertura", 0.0, 0.03, float(P["credito_comision_apertura"]), 0.0025, key=key("cap_"), format="%.4f")
 
 with st.sidebar.expander("Estructura de inversión y perfil de riesgo", expanded=True):
-    perfil = st.selectbox("Perfil del inversionista", list(m.PERFILES) + ["Personalizado"], index=list(m.PERFILES).index("Patrimonial"), key="perfil",
+    perfiles_lista = list(m.PERFILES) + ["Personalizado"]
+    idx_patrimonial = perfiles_lista.index("Patrimonial") if "Patrimonial" in perfiles_lista else 0
+    perfil = st.selectbox("Perfil del inversionista", perfiles_lista, index=idx_patrimonial, key="perfil",
                           help="Cada perfil fija la forma de aportación, la política de distribución y las salvaguardas; en Personalizado se ajustan libremente.")
     PF = m.PERFILES.get(perfil, m.PERFILES["Patrimonial"])
     if perfil != "Personalizado":
         st.caption(PF["descripcion"])
     kp = lambda n: f"{perfil}_{n}"
     pol_ops = list(m.POLITICAS)
+    idx_pol = pol_ops.index(PF["politica"]) if PF["politica"] in pol_ops else 0
     prest_pct = st.slider("Aportación como préstamo intercompañías", 0.0, 1.0, float(PF.get("prestamo_ic_pct", 0.0)), 0.05, key=kp("ppct"),
                           help="Fracción de la aportación que entra a la Operadora como préstamo de Akredita Me (se amortiza sin efecto del art. 78).")
     prest_tasa = st.slider("Tasa del préstamo intercompañías", 0.0, 0.20, float(PF.get("prestamo_ic_tasa", 0.10)), 0.005, key=kp("ptasa"),
                            format="%.3f", disabled=prest_pct == 0)
     prest_plazo = st.slider("Plazo de amortización del préstamo (meses desde inicio de operación)", 12, 240, int(PF.get("prestamo_ic_plazo_meses", 36)), 6,
                             key=kp("pplazo"), disabled=prest_pct == 0)
-    politica = st.selectbox("Política de distribución", pol_ops, index=pol_ops.index(PF["politica"]), key=kp("pol"), format_func=m.POLITICAS.get)
-    pct_cap = st.slider("% de la caja a disminución de capital", 0.0, 1.0, float(PF.get("pct_capital", 0.5)), 0.05, key=kp("pcap"),
+    politica = st.selectbox("Política de distribución", pol_ops, index=idx_pol, key=kp("pol"), format_func=m.POLITICAS.get)
+    pct_cap = st.slider("% de la caja a disminución de capital", 0.0, 1.0, float(PF.get("pct_capital", 0.0)), 0.05, key=kp("pcap"),
                         disabled=politica not in ("mixta", "tope_fiscal"))
     st.markdown("**Salvaguardas**")
     reserva = st.checkbox("Reserva legal (5% de la utilidad hasta 20% del capital)", value=bool(PF.get("reserva_legal", True)), key=kp("rl"))

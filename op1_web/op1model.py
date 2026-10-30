@@ -525,16 +525,18 @@ def kpis(r):
 # 6. ESTRUCTURA DE INVERSIÓN: Akredita Me / Fideicomiso OPE-I / Operadora (90% Akredita Me, 10% socios fundadores)
 # =====================================================================================================
 POLITICAS = {
-    "capital_primero": "Primero disminución de capital",
-    "mixta": "Mixta: año 1 % a capital; después kVA / %",
+    "depreciacion": "Disminución en 20 años, en línea con la depreciación (Patrimonial)",
     "tope_fiscal": "Mixta con tope fiscal (CUCA y CUFIN)",
-    "depreciacion": "Disminución en 20 años, en línea con la depreciación",
+    "mixta": "Mixta: año 1 % a capital; después kVA / %",
+    "capital_primero": "Primero disminución de capital",
     "dividendos_primero": "Primero dividendos",
 }
 
 # Perfiles por apetito de riesgo del inversionista: forma de aportación (capital / préstamo intercompañías),
 # política de distribución y salvaguardas. Las claves 'prestamo_ic_*' se aplican al modelo (run); el resto al motor.
 PERFILES = {
+    "Patrimonial": dict(prestamo_ic_pct=0.0, politica="depreciacion", pct_capital=0.0, reserva_legal=True, caja_minima_meses=1.0,
+                        descripcion="Opción base (por omisión). 100% capital; disminución de capital en 20 años, en línea con la depreciación del activo (mecanismo por definir); horizonte de 20 años."),
     "Conservador": dict(prestamo_ic_pct=0.50, prestamo_ic_tasa=0.10, prestamo_ic_plazo_meses=36,
                         politica="tope_fiscal", pct_capital=0.50, reserva_legal=True, caja_minima_meses=1.0,
                         descripcion="50% de la aportación como préstamo intercompañías amortizable en 3 años desde el inicio de operación; "
@@ -544,8 +546,6 @@ PERFILES = {
                        descripcion="30% como préstamo intercompañías amortizable en 5 años; resto en capital con tope fiscal."),
     "Fiscal optimizado": dict(prestamo_ic_pct=0.0, politica="tope_fiscal", pct_capital=0.50, reserva_legal=True, caja_minima_meses=1.0,
                               descripcion="100% capital; dividendos y disminución de capital limitados a lo que cubren la CUFIN y la CUCA. Sin ISR por distribución."),
-    "Patrimonial": dict(prestamo_ic_pct=0.0, politica="depreciacion", pct_capital=0.0, reserva_legal=True, caja_minima_meses=1.0,
-                        descripcion="Opción base. 100% capital; disminución de capital en 20 años, en línea con la depreciación del activo (mecanismo por definir); horizonte de 20 años."),
     "Mixta sin tope (referencia)": dict(prestamo_ic_pct=0.0, politica="mixta", pct_capital=0.50, reserva_legal=True, caja_minima_meses=1.0,
                                         descripcion="Referencia: año 1, 50% de la caja a disminución de capital; después según la colocación de kVA. Con el efecto del art. 78 y salvaguardas."),
 }
