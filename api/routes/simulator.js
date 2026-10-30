@@ -144,6 +144,12 @@ function createSimulatorRouter(pool) {
     const { id } = req.params;
     const { name, is_active, password, role } = req.body || {};
 
+    if (req.user && String(req.user.id) === String(id)) {
+      if (is_active === false || (role !== undefined && role !== 'admin')) {
+        return res.status(400).json({ error: 'No puedes desactivar ni revocar privilegios a tu propia cuenta de administrador' });
+      }
+    }
+
     try {
       const checkRes = await pool.query('SELECT id FROM simulator_users WHERE id = $1', [id]);
       if (checkRes.rows.length === 0) {
@@ -190,6 +196,9 @@ function createSimulatorRouter(pool) {
         user: result.rows[0],
       });
     } catch (err) {
+      if (err.code === '22P02') {
+        return res.status(400).json({ error: 'ID de usuario inválido' });
+      }
       console.error('[simulator-admin-users-patch-error]', err);
       return res.status(500).json({ error: 'Error al actualizar usuario' });
     }
@@ -214,6 +223,9 @@ function createSimulatorRouter(pool) {
         message: 'Usuario eliminado correctamente',
       });
     } catch (err) {
+      if (err.code === '22P02') {
+        return res.status(400).json({ error: 'ID de usuario inválido' });
+      }
       console.error('[simulator-admin-users-delete-error]', err);
       return res.status(500).json({ error: 'Error al eliminar usuario' });
     }
