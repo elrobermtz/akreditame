@@ -17,14 +17,14 @@
 - Modify: `api/db/init.sql`
 - Create: `api/scripts/seed-admin.js`
 
-- [ ] **Paso 1: Agregar dependencias de seguridad al backend**
+- [x] **Paso 1: Agregar dependencias de seguridad al backend**
   En `api/package.json`, añadir `bcryptjs` y `jsonwebtoken`.
   Comando:
   ```bash
   cd api && npm install bcryptjs jsonwebtoken
   ```
 
-- [ ] **Paso 2: Actualizar `api/db/init.sql` para crear la tabla `simulator_users`**
+- [x] **Paso 2: Actualizar `api/db/init.sql` para crear la tabla `simulator_users`**
   Agregar al final de `api/db/init.sql`:
   ```sql
   CREATE TABLE IF NOT EXISTS simulator_users (
@@ -39,20 +39,20 @@
   );
   ```
 
-- [ ] **Paso 3: Crear script de inicialización del administrador maestro (`api/scripts/seed-admin.js`)**
+- [x] **Paso 3: Crear script de inicialización del administrador maestro (`api/scripts/seed-admin.js`)**
   Crear el script que crea la tabla si no existe y siembra el usuario:
   - Email: `roberto.martinez@akredita.me`
   - Password: `Temporal12345!!` (hasheado con bcrypt)
   - Name: `Roberto Martinez`
   - Role: `admin`
 
-- [ ] **Paso 4: Probar ejecución del script de semilla**
+- [x] **Paso 4: Probar ejecución del script de semilla**
   Ejecutar el script o verificar su sintaxis:
   ```bash
   node api/scripts/seed-admin.js
   ```
 
-- [ ] **Paso 5: Commit de Task 1**
+- [x] **Paso 5: Commit de Task 1**
   ```bash
   git add api/package.json api/package-lock.json api/db/init.sql api/scripts/seed-admin.js
   git commit -m "feat(api): add simulator_users schema and seed admin script"
@@ -252,3 +252,4 @@
   git add .
   git commit -m "feat(simulador): complete private OP1 simulator integration"
   ```
+
