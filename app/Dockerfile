@@ -1,13 +1,39 @@
-# Build stage
-FROM node:20-alpine as build-stage
+# Stage 1: Build React SPA
+FROM node:20-alpine AS build-stage
 WORKDIR /app
-COPY package*.json ./
+COPY app/package*.json ./
 RUN npm install
-COPY . .
+COPY app/ ./
 RUN npm run build
 
-# Production stage
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Stage 2: Production container with Python, Streamlit and Nginx
+FROM python:3.13-slim AS production-stage
+
+WORKDIR /opt/simulador
+
+# Install nginx
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install simulator dependencies
+COPY op1_web/requirements.txt /opt/simulador/
+RUN pip install --no-cache-dir -r /opt/simulador/requirements.txt
+
+# Copy simulator files
+COPY op1_web/ /opt/simulador/
+
+# Copy React static files
+COPY --from=build-stage /app/dist /var/www/html
+
+# Copy Nginx configuration
+COPY app/nginx.conf /etc/nginx/sites-available/default
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Copy entrypoint script
+COPY app/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+ENTRYPOINT ["/entrypoint.sh"]

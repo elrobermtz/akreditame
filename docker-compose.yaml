@@ -21,7 +21,11 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
 
   app:
-    build: ./app
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    ports:
+      - "${PORT:-80}:80"
     depends_on:
       - api
     environment:
